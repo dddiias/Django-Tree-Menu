@@ -10,5 +10,8 @@ class AboutView(TemplateView):
 class ContactsView(TemplateView):
     template_name = "pages/contacts.html"
 
+class ProductsListView(TemplateView):
+    template_name = "pages/products.html"
+
 class ProductView(TemplateView):
-    template_name = "pages/product.html"
+    template_name = "pages/products.html"
