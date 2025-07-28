@@ -1,0 +1,90 @@
+[
+    {
+        "model": "menu.menu",
+        "pk": 1,
+        "fields": {
+            "name": "main",
+            "slug": "main"
+        }
+    },
+    {
+        "model": "menu.menu",
+        "pk": 2,
+        "fields": {
+            "name": "footer",
+            "slug": "footer"
+        }
+    },
+    {
+        "model": "menu.menuitem",
+        "pk": 1,
+        "fields": {
+            "menu": 1,
+            "parent": null,
+            "title": "Home",
+            "order": 1,
+            "named_url": "home",
+            "url": null
+        }
+    },
+    {
+        "model": "menu.menuitem",
+        "pk": 2,
+        "fields": {
+            "menu": 1,
+            "parent": null,
+            "title": "About",
+            "order": 2,
+            "named_url": "about",
+            "url": null
+        }
+    },
+    {
+        "model": "menu.menuitem",
+        "pk": 3,
+        "fields": {
+            "menu": 1,
+            "parent": null,
+            "title": "Products",
+            "order": 3,
+            "named_url": null,
+            "url": "/product/x/"
+        }
+    },
+    {
+        "model": "menu.menuitem",
+        "pk": 4,
+        "fields": {
+            "menu": 1,
+            "parent": 3,
+            "title": "Product X",
+            "order": 1,
+            "named_url": null,
+            "url": "/product/x/"
+        }
+    },
+    {
+        "model": "menu.menuitem",
+        "pk": 5,
+        "fields": {
+            "menu": 1,
+            "parent": 3,
+            "title": "Product Y",
+            "order": 2,
+            "named_url": null,
+            "url": "/product/y/"
+        }
+    },
+    {
+        "model": "menu.menuitem",
+        "pk": 6,
+        "fields": {
+            "menu": 2,
+            "parent": null,
+            "title": "Contacts",
+            "order": 1,
+            "named_url": "contacts",
+            "url": null
+        }
+    }
+]

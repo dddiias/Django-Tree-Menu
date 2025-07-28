@@ -1,0 +1,7 @@
+<ul class="menu">
+    {% for node in roots %}
+    {% include "menu/_node.html" with node=node %}
+    {% empty %}
+    <li><em>Меню пусто</em></li>
+    {% endfor %}
+</ul>
