@@ -1,15 +1,17 @@
 <li class="{% if node.is_active %}active{% endif %}">
-    {% if node.named_url %}
-    <a href="{% url node.named_url %}">{{ node.title }}</a>
+    {% if node.href %}
+    <a href="{{ node.href }}">{{ node.title }}</a>
     {% else %}
-    <a href="{{ node.url }}">{{ node.title }}</a>
+    <span>{{ node.title }}</span>
     {% endif %}
 
-    {% if node.children and node.is_open %}
-    <ul>
+    {% if node.children %}
+    {% if node.is_open or node.is_active %}
+    <ul class="open">
         {% for child in node.children %}
-        {% include "menu/_node.html" with node=child %}
+        {% include "menu/_node.html" with node=child only %}
         {% endfor %}
     </ul>
+    {% endif %}
     {% endif %}
 </li>

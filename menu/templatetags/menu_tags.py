@@ -6,7 +6,6 @@ from ..models import MenuItem
 register = template.Library()
 
 def _resolve_item_url(item: dict) -> Optional[str]:
-    """Преобразуем named_url в реальный путь (reverse) либо берём явный url."""
     if item.get("named_url"):
         try:
             return reverse(item["named_url"])
@@ -15,13 +14,13 @@ def _resolve_item_url(item: dict) -> Optional[str]:
     return item.get("url")
 
 def _build_tree(items: List[dict]) -> dict:
-    """Собираем дерево в памяти: индексы по parent_id и id."""
     by_parent: Dict[Optional[int], List[dict]] = {}
     by_id: Dict[int, dict] = {}
     for it in items:
         it["children"] = []
         it["is_active"] = False
         it["is_open"] = False
+        it["href"] = None
         by_id[it["id"]] = it
         by_parent.setdefault(it["parent_id"], []).append(it)
 
@@ -36,7 +35,6 @@ def _norm(p: Optional[str]) -> Optional[str]:
     return p if p.endswith("/") else p + "/"
 
 def _find_active_id(items: List[dict], req_path: str) -> Optional[int]:
-    """Сопоставляем текущий путь с URL пунктов меню."""
     rp = _norm(req_path)
     for it in items:
         target = _norm(_resolve_item_url(it))
@@ -45,7 +43,6 @@ def _find_active_id(items: List[dict], req_path: str) -> Optional[int]:
     return None
 
 def _open_branch(by_id: dict, active_id: Optional[int]) -> None:
-    """Отмечаем активную ветку: все предки открыты, активный узел помечен."""
     cur = by_id.get(active_id) if active_id else None
     while cur:
         cur["is_open"] = True
@@ -65,6 +62,11 @@ def draw_menu(context, menu_name: str):
     )
 
     tree = _build_tree(items)
+
+    for it in items:
+        href = _resolve_item_url(it)
+        tree["by_id"][it["id"]]["href"] = href
+
     active_id = _find_active_id(items, request.path if request else "")
     _open_branch(tree["by_id"], active_id)
 
